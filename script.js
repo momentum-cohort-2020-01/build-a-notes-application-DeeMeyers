@@ -38,6 +38,40 @@ function postNewNote (noteText) {
     .than(response => response.json())
 }
 
+function renderNotesList (notes) {
+    const notesHTML =createNotesHTML(notes)
+    const notesSection = q('#notes')
+    notesSection.innerHTML = notesHTML
+}
+
+function renderNewNote (note) {
+    const todoHTML =createNotesHTML(note)
+    const notesList = q('#notes-list')
+    noteList.insertAdhacentHTML(beforend, noteHTML)
+}
+
+getAllNotes().then(renderNotesList)
+
+q('#new-note-form').addEventLIstener('submit', event=> {
+    event.preventDefault()
+    const noteTextFeild = q('#note-text')
+    const noteText = noteTextFeild.value
+    noteTextFeild.value = ''
+    postNewNote(noteText).then(renderNewNote)
+})
+
+q('#notes').addEventLIstener('click', event => {
+    if (event.target.matches('delete')){
+        print('delete ' + event.target.parentElement.dataset.noteId)
+        //add send AJAX request to delete todo
+        //add remove li with dataset-note-id equal to id from dom
+    }
+})
+
+
+
+
+
 
 
 

@@ -8,9 +8,9 @@ function print (value){
     console.log(value)
     return value
 }
-function getAllNotes(){
-    fetch ('http://localhost:3000/notes/',{
-        method: 'GET'
+function getAllNotes () {
+    return fetch ('http://localhost:3000/notes/', {
+    method: 'GET'
     })
     .then(response => response.json())
 }
@@ -51,22 +51,28 @@ function renderNewNote (note) {
 }
 
 getAllNotes().then(renderNotesList)
-
-q('#new-note-form').addEventLIstener('submit', event=> {
+let temp = q('#new-note-form')
+temp.addEventListener('submit', event=> {
     event.preventDefault()
     const noteTextFeild = q('#note-text')
     const noteText = noteTextFeild.value
     noteTextFeild.value = ''
     postNewNote(noteText).then(renderNewNote)
 })
+//make a form for the title
+//add getting that field to the event listner
+//add that info to the post
+//figure out what is being return to note list
 
-q('#notes').addEventLIstener('click', event => {
-    if (event.target.matches('delete')){
-        print('delete ' + event.target.parentElement.dataset.noteId)
-        //add send AJAX request to delete todo
-        //add remove li with dataset-note-id equal to id from dom
-    }
-})
+
+// let temp2 = q('#notes')
+// temp2.addEventLIstener('click', event => {
+//     if (event.target.matches('delete')){
+//         print('delete ' + event.target.parentElement.dataset.noteId)
+//         //add send AJAX request to delete todo
+//         //add remove li with dataset-note-id equal to id from dom
+//     }
+// })
 
 
 

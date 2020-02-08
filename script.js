@@ -26,8 +26,8 @@ return notesStr
 }
 
 function createNoteHTML (note){
-    console.log("this thing: ")
-    console.log(note)
+    // console.log("this thing: ")
+    // console.log(note)
     return `<li data-note-id="${note.id}">${note.title} <button class="delete">Delete</button></li>`
 }
 
@@ -37,7 +37,7 @@ function postNewNote (noteText) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({title: 'a new note', body: noteText})
     })
-    .than(response => response.json())
+    .then(response => response.json())
 }
 
 function renderNotesList (notes) {
@@ -49,12 +49,12 @@ function renderNotesList (notes) {
 function renderNewNote (note) {
     const todoHTML =createNotesHTML(note)
     const notesList = q('#notes-list')
-    noteList.insertAdhacentHTML(beforend, noteHTML)
+    noteList.insertAdjacentHTML(beforend, noteHTML)
 }
 
 getAllNotes().then(renderNotesList)
-let temp = q('#new-note-form')
-temp.addEventListener('submit', event=> {
+// let temp = q('#new-note-form')
+q('#new-note-form').addEventListener('submit', event=> {
     event.preventDefault()
     const noteTextFeild = q('#note-text')
     const noteText = noteTextFeild.value
@@ -68,13 +68,27 @@ temp.addEventListener('submit', event=> {
 
 
 // let temp2 = q('#notes')
-// temp2.addEventLIstener('click', event => {
-//     if (event.target.matches('delete')){
-//         print('delete ' + event.target.parentElement.dataset.noteId)
-//         //add send AJAX request to delete todo
-//         //add remove li with dataset-note-id equal to id from dom
-//     }
-// })
+// print('temp 2: ')
+// print({temp2})
+q('#notes').addEventListener('click', event => {
+    // event.preventDefault()
+    let noteID = event.target.parentElement.dataset.noteId
+    if (event.target.matches('.delete') === true){
+        print('deleted!' + event.target.parentElement.dataset.noteId)
+        deleteNote(noteID)
+        //add send AJAX request to delete todo
+        //add remove li with dataset-note-id equal to id from dom
+    }
+})
+
+
+function deleteNote(noteID){
+    return fetch(`http://localhost:3000/notes/${noteID}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+}
+
 
 
 

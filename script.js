@@ -18,7 +18,7 @@ function getAllNotes () {
 function createNotesHTML (notes){
     let notesStr = '<ul id="note-list">'
     for (const note of notes){
-        notesStr += createNoteHTML(notes)
+        notesStr += createNoteHTML(note)
     }
 notesStr += '</ul>'
 return notesStr
@@ -26,7 +26,9 @@ return notesStr
 }
 
 function createNoteHTML (note){
-    return `<li data-note-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
+    console.log("this thing: ")
+    console.log(note)
+    return `<li data-note-id="${note.id}">${note.title} <button class="delete">Delete</button></li>`
 }
 
 function postNewNote (noteText) {

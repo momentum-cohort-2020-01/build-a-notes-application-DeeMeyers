@@ -28,7 +28,11 @@ return notesStr
 function createNoteHTML (note){
     // console.log("this thing: ")
     // console.log(note)
-    return `<li data-note-id="${note.id}">${note.title}<div id="bodyID${note.id}">${note.body}</div><button class="delete">Delete</button></li>`
+    return `<li data-note-id="${note.id}">${note.title}
+    <div id="bodyID${note.id}">${note.body}</div>
+    <button class="delete">Delete</button>
+    <button class="edit">Edit</button>
+    </li>`
 }
 
 function postNewNote (noteTitle, noteText) {
@@ -90,6 +94,17 @@ function deleteNote(noteID){
     .then(response => response.json())
 }
 
+
+q('#notes').addEventListener('click', event => {
+    if(event.target.matches('.edit')===true){
+        print('edit clicked')
+    }
+})
+
+
+function updateNote(){
+    
+}
 
 
 

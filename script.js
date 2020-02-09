@@ -31,11 +31,11 @@ function createNoteHTML (note){
     return `<li data-note-id="${note.id}">${note.title} <button class="delete">Delete</button></li>`
 }
 
-function postNewNote (noteText) {
+function postNewNote (noteTitle, noteText) {
     return fetch('http://localhost:3000/notes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({title: 'a new note', body: noteText})
+        body: JSON.stringify({title: noteTitle, body: noteText})
     })
     .then(response => response.json())
 }
@@ -59,7 +59,10 @@ q('#new-note-form').addEventListener('submit', event=> {
     const noteTextFeild = q('#note-text')
     const noteText = noteTextFeild.value
     noteTextFeild.value = ''
-    postNewNote(noteText).then(renderNewNote)
+    const noteTitleFeild = q('#title-text')
+    const titleText = noteTitleFeild.value
+    noteTitleFeild.value = ''
+    postNewNote(titleText, noteText).then(renderNewNote)
 })
 //make a form for the title
 //add getting that field to the event listner
@@ -76,8 +79,6 @@ q('#notes').addEventListener('click', event => {
     if (event.target.matches('.delete') === true){
         print('deleted!' + event.target.parentElement.dataset.noteId)
         deleteNote(noteID)
-        //add send AJAX request to delete todo
-        //add remove li with dataset-note-id equal to id from dom
     }
 })
 

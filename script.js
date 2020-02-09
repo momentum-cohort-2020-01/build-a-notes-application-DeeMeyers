@@ -1,5 +1,3 @@
-//i swear i didnt copy paste
-
 function q(value){
     return document.querySelector(value)
 }
@@ -8,6 +6,7 @@ function print (value){
     console.log(value)
     return value
 }
+
 function getAllNotes () {
     return fetch ('http://localhost:3000/notes/', {
     method: 'GET'
@@ -22,12 +21,9 @@ function createNotesHTML (notes){
     }
 notesStr += '</ul>'
 return notesStr
-//try to figure out temperlate literals later
 }
 
 function createNoteHTML (note){
-    // console.log("this thing: ")
-    // console.log(note)
     return `<li data-note-id="${note.id}">${note.title}
     <div id="bodyID${note.id}">${note.body}</div>
     <button class="delete">Delete</button>
@@ -57,7 +53,7 @@ function renderNewNote (note) {
 }
 
 getAllNotes().then(renderNotesList)
-// let temp = q('#new-note-form')
+
 q('#new-note-form').addEventListener('submit', event=> {
     event.preventDefault()
     const noteTextFeild = q('#note-text')
@@ -68,51 +64,21 @@ q('#new-note-form').addEventListener('submit', event=> {
     noteTitleFeild.value = ''
     postNewNote(titleText, noteText).then(renderNewNote)
 })
-//make a form for the title
-//add getting that field to the event listner
-//add that info to the post
-//figure out what is being return to note list
 
-
-// let temp2 = q('#notes')
-// print('temp 2: ')
-// print({temp2})
 q('#notes').addEventListener('click', event => {
-    // event.preventDefault()
     let noteID = event.target.parentElement.dataset.noteId
     if (event.target.matches('.delete') === true){
         print('deleted!' + event.target.parentElement.dataset.noteId)
         deleteNote(noteID)
     }
-})
-
-
+    else if(event.target.matches('.edit') === true){
+            print('edit clicked on ' + noteID)
+        }
+    })
+    
 function deleteNote(noteID){
     return fetch(`http://localhost:3000/notes/${noteID}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
 }
-
-
-q('#notes').addEventListener('click', event => {
-    if(event.target.matches('.edit')===true){
-        print('edit clicked')
-    }
-})
-
-
-function updateNote(){
-    
-}
-
-
-
-
-
-
-
-
-
-
-

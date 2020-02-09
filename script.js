@@ -28,7 +28,7 @@ return notesStr
 function createNoteHTML (note){
     // console.log("this thing: ")
     // console.log(note)
-    return `<li data-note-id="${note.id}">${note.title} <button class="delete">Delete</button></li>`
+    return `<li data-note-id="${note.id}">${note.title}<div id="bodyID${note.id}">${note.body}</div><button class="delete">Delete</button></li>`
 }
 
 function postNewNote (noteTitle, noteText) {

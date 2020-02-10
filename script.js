@@ -25,9 +25,9 @@ return notesStr
 
 function createNoteHTML (note){
     return `<li data-note-id="${note.id}">${note.title}
-    <div id="bodyID${note.id}">${note.body}</div>
-    <button class="delete">Delete</button>
-    <button class="edit">Edit</button>
+    <div id="bodyID${note.id}" class="ID${note.id}">${note.body}</div>
+    <button class="delete ID${note.id}"> Delete </button>
+    <button class="edit ID${note.id}"> Edit </button>
     </li>`
 }
 
@@ -87,5 +87,8 @@ function deleteNote(noteID){
 
 function editNoteRender(noteID){
     let editText = q(`#bodyID${noteID}`).innerText
-    removeElement(`#bodyID${noteID}`)
+    let removedItems = document.querySelectorAll(`.ID${noteID}`)
+    removedItems.forEach(element => element.parentElement.removeChild(element))
+    
+    
 }

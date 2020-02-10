@@ -88,7 +88,11 @@ function deleteNote(noteID){
 function editNoteRender(noteID){
     let editText = q(`#bodyID${noteID}`).innerText
     let removedItems = document.querySelectorAll(`.ID${noteID}`)
+    removedItems[1].parentElement.insertAdjacentHTML('beforeend', `<form class="editForm">
+    <label for="edit-note">Edit Your Note</label>
+    <input type="text" value="${editText}" required>
+    </form>
+    <button>Update</button>`)
+    print(parent).value
     removedItems.forEach(element => element.parentElement.removeChild(element))
-    
-    
 }

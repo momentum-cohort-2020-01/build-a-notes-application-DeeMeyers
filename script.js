@@ -1,19 +1,16 @@
 function q(value){
     return document.querySelector(value)
 }
-
 function print (value){
     console.log(value)
     return value
 }
-
 function getAllNotes () {
     return fetch ('http://localhost:3000/notes/', {
     method: 'GET'
     })
     .then(response => response.json())
 }
-
 function createNotesHTML (notes){
     let notesStr = '<ul id="note-list">'
     for (const note of notes){
@@ -22,7 +19,6 @@ function createNotesHTML (notes){
 notesStr += '</ul>'
 return notesStr
 }
-
 function createNoteHTML (note){
     return `<li data-note-id="${note.id}">${note.title}
     <div id="bodyID${note.id}" class="ID${note.id}">${note.body}</div>
@@ -30,7 +26,6 @@ function createNoteHTML (note){
     <button class="edit ID${note.id}"> Edit </button>
     </li>`
 }
-
 function postNewNote (noteTitle, noteText) {
     return fetch('http://localhost:3000/notes/', {
         method: 'POST',
@@ -39,21 +34,17 @@ function postNewNote (noteTitle, noteText) {
     })
     .then(response => response.json())
 }
-
 function renderNotesList (notes) {
     const notesHTML =createNotesHTML(notes)
     const notesSection = q('#notes')
     notesSection.innerHTML = notesHTML
 }
-
 function renderNewNote (note) {
     const todoHTML =createNotesHTML(note)
     const notesList = q('#notes-list')
     noteList.insertAdjacentHTML(beforend, noteHTML)
 }
-
 getAllNotes().then(renderNotesList)
-
 q('#new-note-form').addEventListener('submit', event=> {
     event.preventDefault()
     const noteTextFeild = q('#note-text')
@@ -64,7 +55,6 @@ q('#new-note-form').addEventListener('submit', event=> {
     noteTitleFeild.value = ''
     postNewNote(titleText, noteText).then(renderNewNote)
 })
-
 q('#notes').addEventListener('click', event => {
     let noteID = event.target.parentElement.dataset.noteId
     if (event.target.matches('.delete') === true){
@@ -79,17 +69,14 @@ q('#notes').addEventListener('click', event => {
     else if(event.target.matches('.update') === true){
         print('update clicked')
         updateNote(noteID)
-
     }
     })
-
 function deleteNote(noteID){
     return fetch(`http://localhost:3000/notes/${noteID}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
 }
-
 function editNoteRender(noteID){
     let editText = q(`#bodyID${noteID}`).innerText
     let removedItems = document.querySelectorAll(`.ID${noteID}`)
@@ -101,7 +88,6 @@ function editNoteRender(noteID){
     print(parent).value
     removedItems.forEach(element => element.parentElement.removeChild(element))
 }
-
 function updateNote(noteID){
     let updateTextField = q('#update-text')
     let updateText = updateTextField.value

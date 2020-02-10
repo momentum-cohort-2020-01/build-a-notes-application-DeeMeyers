@@ -73,12 +73,19 @@ q('#notes').addEventListener('click', event => {
     }
     else if(event.target.matches('.edit') === true){
             print('edit clicked on ' + noteID)
+            editNoteRender(noteID)
+            
         }
     })
-    
+
 function deleteNote(noteID){
     return fetch(`http://localhost:3000/notes/${noteID}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
+}
+
+function editNoteRender(noteID){
+    let editText = q(`#bodyID${noteID}`).innerText
+    removeElement(`#bodyID${noteID}`)
 }

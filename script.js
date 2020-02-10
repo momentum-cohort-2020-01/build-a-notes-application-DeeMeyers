@@ -76,6 +76,11 @@ q('#notes').addEventListener('click', event => {
             editNoteRender(noteID)
             
         }
+    else if(event.target.matches('.update') === true){
+        print('update clicked')
+        updateNote(noteID)
+
+    }
     })
 
 function deleteNote(noteID){
@@ -90,9 +95,20 @@ function editNoteRender(noteID){
     let removedItems = document.querySelectorAll(`.ID${noteID}`)
     removedItems[1].parentElement.insertAdjacentHTML('beforeend', `<form class="editForm">
     <label for="edit-note">Edit Your Note</label>
-    <input type="text" value="${editText}" required>
+    <input type="text" value="${editText}" id="update-text" required>
     </form>
-    <button>Update</button>`)
+    <button class="update">Update</button>`)
     print(parent).value
     removedItems.forEach(element => element.parentElement.removeChild(element))
+}
+
+function updateNote(noteID){
+    let updateTextField = q('#update-text')
+    let updateText = updateTextField.value
+    print(updateText)
+    return fetch(`http://localhost:3000/notes/${noteID}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body: updateText })
+    })
 }

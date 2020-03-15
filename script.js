@@ -56,6 +56,7 @@ q('#new-note-form').addEventListener('submit', event=> {
     postNewNote(titleText, noteText).then(renderNewNote)
 })
 q('#notes').addEventListener('click', event => {
+    event.preventDefault()
     let noteID = event.target.parentElement.dataset.noteId
     if (event.target.matches('.delete') === true){
         print('deleted!' + event.target.parentElement.dataset.noteId)
